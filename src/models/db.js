@@ -13,7 +13,10 @@ import { Pool } from 'pg';
  */
 const pool = new Pool({
     connectionString: process.env.DB_URL,
-    ssl: true
+    //ssl: true   //Proble like  "Internal Server error" so we will coment this line and modify to
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 /**
