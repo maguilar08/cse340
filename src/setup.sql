@@ -21,3 +21,112 @@ VALUES
 
 
 SELECT * FROM organization;
+
+
+
+-- ========================================
+-- Service Project Table
+-- ========================================
+CREATE TABLE service_project (
+    project_id SERIAL PRIMARY KEY,
+    organization_id INT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL,
+    location VARCHAR(150) NOT NULL,
+    project_date DATE NOT NULL,
+
+    CONSTRAINT fk_organization
+        FOREIGN KEY (organization_id)
+        REFERENCES organization (organization_id)
+);
+
+SELECT * FROM service_project;
+
+
+-- ========================================
+-- Insert sample data: Service Projects
+-- ========================================
+
+INSERT INTO service_project
+(organization_id, title, description, location, project_date)
+VALUES
+
+-- BrightFuture Builders (organization_id = 1)
+(1, 'Community Center Repair',
+'Repair and repaint rooms in a neighborhood community center.',
+'Downtown Community Center',
+'2027-06-06'),
+
+(1, 'Accessible Ramp Build',
+'Build accessibility ramps for residents who need safer home entry.',
+'Westside Neighborhood',
+'2027-06-13'),
+
+(1, 'School Playground Refresh',
+'Install mulch, repaint equipment, and clean the school playground.',
+'Lincoln Elementary School',
+'2027-06-20'),
+
+(1, 'Senior Home Safety Day',
+'Help install handrails, replace bulbs, and complete minor safety fixes.',
+'Maple Grove Senior Housing',
+'2027-06-27'),
+
+(1, 'Neighborhood Tool Library Setup',
+'Organize donated tools and prepare shelves for a community tool library.',
+'BrightFuture Workshop',
+'2027-07-11'),
+
+-- GreenHarvest Growers (organization_id = 2)
+(2, 'Urban Garden Planting',
+'Plant vegetables and herbs in raised garden beds for the community.',
+'GreenHarvest Teaching Garden',
+'2027-06-04'),
+
+(2, 'Compost Education Day',
+'Teach residents how to compost food scraps and reduce waste.',
+'Riverside Farmers Market',
+'2027-06-12'),
+
+(2, 'Food Pantry Harvest',
+'Harvest fresh produce and prepare donations for a local food pantry.',
+'GreenHarvest Urban Farm',
+'2027-06-18'),
+
+(2, 'Community Orchard Cleanup',
+'Prune trees, remove debris, and prepare the orchard for summer growth.',
+'Eastside Community Orchard',
+'2027-06-25'),
+
+(2, 'Youth Gardening Workshop',
+'Help children learn basic planting, watering, and harvesting skills.',
+'Neighborhood Learning Center',
+'2027-07-09'),
+
+-- UnityServe Volunteers (organization_id = 3)
+(3, 'Charity Supply Sorting',
+'Sort donated clothing, hygiene kits, and household supplies.',
+'UnityServe Donation Center',
+'2027-06-05'),
+
+(3, 'Park Cleanup Crew',
+'Remove litter, clear walking paths, and beautify a local park.',
+'Heritage Park',
+'2027-06-14'),
+
+(3, 'Community Tutoring Night',
+'Support students with reading, math, and homework help.',
+'UnityServe Learning Lab',
+'2027-06-19'),
+
+(3, 'Meal Kit Assembly',
+'Assemble shelf-stable meal kits for families in need.',
+'UnityServe Volunteer Hall',
+'2027-06-26'),
+
+(3, 'Back-to-School Drive Prep',
+'Organize backpacks, notebooks, and supplies for distribution.',
+'UnityServe Warehouse',
+'2027-07-10');
+
+SELECT * FROM service_project;
