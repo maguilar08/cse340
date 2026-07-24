@@ -130,3 +130,77 @@ VALUES
 '2027-07-10');
 
 SELECT * FROM service_project;
+
+
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+
+CREATE TABLE project_category (
+    project_id INT NOT NULL,
+    category_id INT NOT NULL,
+
+    PRIMARY KEY (project_id, category_id),
+
+    FOREIGN KEY (project_id)
+        REFERENCES service_project(project_id),
+
+    FOREIGN KEY (category_id)
+        REFERENCES category(category_id)
+);
+
+
+SELECT * FROM category;
+
+SELECT * FROM project_category;
+
+
+-- ========================================
+-- Insert sample data: Categories
+-- ========================================
+
+INSERT INTO category (name)
+VALUES
+('Community Service'),
+('Educational'),
+('Environmental'),
+('Health and Wellness');
+
+
+SELECT * FROM category;
+
+
+-- ========================================
+-- Associate Projects with Categories
+-- ========================================
+
+INSERT INTO project_category (project_id, category_id)
+VALUES
+-- BrightFuture Builders
+(1,1),
+(2,1),
+(3,1),
+(4,4),
+(5,1),
+
+-- GreenHarvest Growers
+(6,3),
+(7,2),
+(7,3),
+(8,1),
+(9,3),
+(10,2),
+(10,3),
+
+-- UnityServe Volunteers
+(11,1),
+(12,1),
+(12,3),
+(13,2),
+(14,1),
+(15,2);
+
+
+SELECT * FROM project_category;
