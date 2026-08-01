@@ -130,6 +130,11 @@ main ul {
     margin-top: 20px;
 }
 
+main ul li a{
+    text-decoration: none;
+    color: black;
+}
+
 main li {
     background: white;
     margin-bottom: 18px;

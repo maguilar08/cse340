@@ -1,5 +1,7 @@
 // Import any needed model functions
-import { getAllOrganizations } from '../models/organizations.js';
+//import { getAllOrganizations } from '../models/organizations.js';
+import { getAllOrganizations, getOrganizationDetails } from '../models/organizations.js';
+import { getProjectsByOrganizationId } from '../models/projects.js';
 
 // Define any controller functions
 const showOrganizationsPage = async (req, res) => {
@@ -9,5 +11,19 @@ const showOrganizationsPage = async (req, res) => {
     res.render('organizations', { title, organizations });
 };
 
+
+// w03 added route and query parameters
+const showOrganizationDetailsPage = async (req, res) => {
+    const organizationId = req.params.id;
+    const organizationDetails = await getOrganizationDetails(organizationId);
+    const projects = await getProjectsByOrganizationId(organizationId);
+    const title = 'Organization Details';
+
+    res.render('organization', {title, organizationDetails, projects});
+};
+
 // Export any controller functions
-export { showOrganizationsPage };
+//export { showOrganizationsPage };
+
+// Export any controller functions
+export { showOrganizationsPage, showOrganizationDetailsPage };
