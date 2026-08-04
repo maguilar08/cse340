@@ -20,8 +20,12 @@
                             month: 'long',
                             day: 'numeric'
                         }) %>:
-                        <%= project.title %>
-                        (<em><%= project.organization_name %></em>)
+                        <!--Added in week 3 group activity href-->
+                        <a href="/project/<%= project.project_id %>">
+                        <%= project.title %></a>
+                        <!--Added in week 3 group activity href-->
+                        <a href="/organization/<%= project.organization_id %>">
+                        (<em><%= project.organization_name %></em>)</a>
                     </strong>
     
                     <p><%= project.description %></p>
