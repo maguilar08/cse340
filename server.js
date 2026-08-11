@@ -6,6 +6,9 @@ import { testConnection } from './src/models/db.js';
 //import { getAllProjects } from './src/models/projects.js';
 //import { getAllCategories } from './src/models/categories.js';
 import router from './src/routes.js';
+// Learning Activity w4
+import session from 'express-session';
+import flash from './src/middleware/flash.js';
 
 
 
@@ -16,6 +19,9 @@ const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 // Define the port number the server will listen on
 const PORT = process.env.PORT || 3000;
 
+// Learning Activity w4
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -24,7 +30,20 @@ const app = express();
 /**
   * Configure Express middleware
 */
-// Added w4Handling Form Submissions
+
+// W04 - Set up session management
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour of inactivity
+}));
+
+//  W04 - Use flash message middleware
+app.use(flash);
+
+
+// Added w4 Handling Form Submissions
 // Allow Express to receive and process common POST data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
