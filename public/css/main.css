@@ -209,6 +209,102 @@ a {
 a:hover {
     color: #1f4e79;
 }
+/******************************************/
+/* Form container */
+form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* Each form field */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #1f4f7a;
+}
+
+/* Inputs and textarea */
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid #b8c2cc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Focus state */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #245985;
+    box-shadow: 0 0 0 3px rgba(36, 89, 133, 0.15);
+}
+
+/* Submit button */
+form button {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: #245985;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #193f60;
+}
+/******************************/
+/* Add organization button */
+.add-organization-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.4rem;
+
+    background-color: #245985;
+    color: white;
+
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+
+    border-radius: 6px;
+
+    transition: background-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.add-organization-btn:hover {
+    background-color: #193f60;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.add-organization-btn:focus {
+    outline: 3px solid rgba(36, 89, 133, 0.3);
+    outline-offset: 3px;
+}
 
 /* =========================
    MOBILE
