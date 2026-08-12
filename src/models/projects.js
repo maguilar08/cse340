@@ -109,8 +109,37 @@ const getProjectsByOrganizationId = async (organizationId) => {
     return result.rows;
 };
 
+// W04 added Repeat the process: Inserting New Service Projects
+const createProject = async (title, description, location, date, organizationId) => {
+    // Always remember: the table is service_project
+    // and the date column is project_date
+    const query = `
+      INSERT INTO service_project (title, description, location, project_date, organization_id)  
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING project_id;
+    `;
+
+    const queryParams = [title, description, location, date, organizationId];
+    const result = await db.query(query, queryParams);
+
+    if (result.rows.length === 0) {
+        throw new Error('Failed to create project');
+    }
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Created new project with ID:', result.rows[0].project_id);
+    }
+
+    return result.rows[0].project_id;
+}
+
 //export { getAllProjects };
 
 // Export the model functions
-export { getAllProjects,getUpcomingProjects,
-    getProjectDetails, getProjectsByOrganizationId };
+export { 
+    getAllProjects,
+    getUpcomingProjects,
+    getProjectDetails,
+    getProjectsByOrganizationId,
+    createProject
+};
