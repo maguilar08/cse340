@@ -46,7 +46,8 @@ import {
     processLogout,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersPage
 } from './controllers/users.js';
 
 
@@ -92,6 +93,8 @@ router.post('/register', processUserRegistrationForm);
 router.get('/login', showLoginForm);
 router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
+// W05 Assignment - Admin-only users page
+router.get('/users', requireRole('admin'), showUsersPage);
 
 
 // error-handling routes
