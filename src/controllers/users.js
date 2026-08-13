@@ -95,6 +95,26 @@ const showDashboard = (req, res) => {
     });
 };
 
+// W05 - Require a specific user role
+const requireRole = (role) => {
+    return (req, res, next) => {
+        // Check if user is logged in
+        if (!req.session || !req.session.user) {
+            req.flash('error', 'You must be logged in to access this page.');
+            return res.redirect('/login');
+        }
+
+        // Check if the user has the required role
+        if (req.session.user.role_name !== role) {
+            req.flash('error', 'You do not have permission to access this page.');
+            return res.redirect('/');
+        }
+
+        // User has the required role
+        next();
+    };
+};
+
 export { 
     showUserRegistrationForm,
     processUserRegistrationForm,
@@ -102,5 +122,6 @@ export {
     processLoginForm,
     processLogout,
     requireLogin,
-    showDashboard
+    showDashboard,
+    requireRole
  };

@@ -27,7 +27,12 @@
             -->
         </ul>
         <!-- added in week 4 Handling Form Submissions -->
-        <p><a href="/new-organization" class="add-organization-btn" >Add a new organization</a></p>
+
+        <% if (user && user.role_name === 'admin') { %>
+            <p>
+                <a href="/new-organization" class="add-organization-btn" >Add a new organization</a>
+            </p>
+        <% } %>
     </main>
 
     <%- include('partials/footer') %>

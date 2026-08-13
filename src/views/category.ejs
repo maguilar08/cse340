@@ -15,11 +15,13 @@
             </li>
         <% }) %>
     </ul>
-    <p>
-        <a href="/edit-category/<%= category.category_id %>" class="add-organization-btn">
-            Edit Category
-        </a>
-    </p>
+    <% if (user && user.role_name === 'admin') { %>
+        <p>
+            <a href="/edit-category/<%= category.category_id %>" class="add-organization-btn">
+                Edit Category
+            </a>
+        </p>
+    <% } %>    
 </main>
 
 <%- include('partials/footer') %>
