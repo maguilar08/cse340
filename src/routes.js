@@ -38,6 +38,15 @@ import {
     processEditOrganizationForm
 } from './controllers/organizations.js';
 
+import {
+    showUserRegistrationForm,
+    processUserRegistrationForm,
+    showLoginForm,
+    processLoginForm,
+    processLogout
+} from './controllers/users.js';
+
+
 const router = express.Router();
 
 router.get('/', showHomePage);
@@ -73,6 +82,14 @@ router.post('/new-category', categoryValidation, processNewCategoryForm);
 // W04 Assignment - Edit Category
 router.get('/edit-category/:id', showEditCategoryForm);
 router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
+// User registration routes
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
+// W05 - User login routes
+router.get('/login', showLoginForm);
+router.post('/login', processLoginForm);
+router.get('/logout', processLogout);
+
 
 // error-handling routes
 router.get('/test-error', testErrorPage);
