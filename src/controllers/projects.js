@@ -1,6 +1,11 @@
 // Import any needed model functions
 import { getAllProjects } from '../models/projects.js';
-import { getUpcomingProjects, getProjectDetails, createProject } from '../models/projects.js';
+import { 
+    getUpcomingProjects, 
+    getProjectDetails, 
+    createProject, 
+    updateProject 
+} from '../models/projects.js';
 //Added assignment w3---
 import { getCategoriesByProjectId } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
@@ -130,11 +135,71 @@ const processNewProjectForm = async (req, res) => {
     }
 };
 
+
+// W04 Team Activity - Display edit project form
+const showEditProjectForm = async (req, res) => {
+    const projectId = req.params.id;
+
+    const projectDetails = await getProjectDetails(projectId);
+    const organizations = await getAllOrganizations();
+
+    const title = 'Edit Service Project';
+
+    res.render('edit-project', {
+        title,
+        projectDetails,
+        organizations
+    });
+};
+
+// W04 Team Activity - Process edit project form
+const processEditProjectForm = async (req, res) => {
+        // Check for validation errors
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        errors.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+
+        // Return to the edit form
+        return res.redirect(`/edit-project/${req.params.id}`);
+    }
+
+    const projectId = req.params.id;
+
+    const {
+        title,
+        description,
+        location,
+        date,
+        organizationId
+    } = req.body;
+
+    await updateProject(
+        projectId,
+        title,
+        description,
+        location,
+        date,
+        organizationId
+    );
+
+    req.flash('success', 'Service project updated successfully!');
+
+    res.redirect(`/project/${projectId}`);
+};
+
+
+
+
 // Export any controller functions
 export { 
     showProjectsPage, 
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
-    projectValidation
+    projectValidation,
+    showEditProjectForm,
+    processEditProjectForm
  };
