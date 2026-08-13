@@ -1,7 +1,9 @@
 import express from 'express';
 
 import { showHomePage } from './controllers/index.js';
+
 import { showOrganizationsPage } from './controllers/organizations.js';
+
 import { 
     showProjectsPage,
     showProjectDetailsPage,
@@ -11,14 +13,23 @@ import {
     showEditProjectForm,
     processEditProjectForm
 } from './controllers/projects.js';
+
 import { 
     showCategoriesPage, 
     showCategoryDetailsPage,
     showAssignCategoriesForm,
-    processAssignCategoriesForm
+    processAssignCategoriesForm,
+    showNewCategoryForm,
+    processNewCategoryForm,
+    categoryValidation,
+    showEditCategoryForm,
+    processEditCategoryForm
 } from './controllers/categories.js';
+
 import { testErrorPage } from './controllers/errors.js';
+
 import { showOrganizationDetailsPage } from './controllers/organizations.js';
+
 import { 
     showNewOrganizationForm,
     processNewOrganizationForm,
@@ -56,6 +67,12 @@ router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 // W04 Team Activity - Edit Service Project
 router.get('/edit-project/:id', showEditProjectForm);
 router.post('/edit-project/:id', projectValidation, processEditProjectForm);
+// W04 Assignment - Create Category
+router.get('/new-category', showNewCategoryForm);
+router.post('/new-category', categoryValidation, processNewCategoryForm);
+// W04 Assignment - Edit Category
+router.get('/edit-category/:id', showEditCategoryForm);
+router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
 
 // error-handling routes
 router.get('/test-error', testErrorPage);
