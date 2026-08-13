@@ -4,7 +4,10 @@ import {
     getUpcomingProjects, 
     getProjectDetails, 
     createProject, 
-    updateProject 
+    updateProject,
+    isUserVolunteeringForProject,
+    addVolunteerToProject,
+    removeVolunteerFromProject
 } from '../models/projects.js';
 //Added assignment w3---
 import { getCategoriesByProjectId } from '../models/categories.js';
@@ -73,12 +76,25 @@ const showProjectDetailsPage = async (req, res) => {
 
     // added by w3 assignment
     const categories = await getCategoriesByProjectId(id);
+
+    let isVolunteering = false;
+
+    //W06
+    if (req.session && req.session.user) {
+        isVolunteering = await isUserVolunteeringForProject(
+            req.session.user.user_id,
+            id
+        );
+    }
+
+
     const title = `${project.title} Details`;
 
     res.render('project', {
         title,
         project,
-        categories
+        categories,
+        isVolunteering
     });
 };
 
@@ -191,6 +207,31 @@ const processEditProjectForm = async (req, res) => {
 };
 
 
+// W06 - Add logged-in user as volunteer
+const processVolunteerForProject = async (req, res) => {
+    const projectId = req.params.id;
+    const userId = req.session.user.user_id;
+
+    await addVolunteerToProject(userId, projectId);
+
+    req.flash('success', 'You are now volunteering for this project!');
+
+    res.redirect(`/project/${projectId}`);
+};
+
+
+// W06 - Remove logged-in user as volunteer
+const processRemoveVolunteerFromProject = async (req, res) => {
+    const projectId = req.params.id;
+    const userId = req.session.user.user_id;
+
+    await removeVolunteerFromProject(userId, projectId);
+
+    req.flash('success', 'You are no longer volunteering for this project.');
+
+    res.redirect(`/project/${projectId}`);
+};
+
 
 
 // Export any controller functions
@@ -201,5 +242,7 @@ export {
     processNewProjectForm,
     projectValidation,
     showEditProjectForm,
-    processEditProjectForm
+    processEditProjectForm,
+    processVolunteerForProject,
+    processRemoveVolunteerFromProject
  };

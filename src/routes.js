@@ -11,7 +11,9 @@ import {
     processNewProjectForm,
     projectValidation,
     showEditProjectForm,
-    processEditProjectForm
+    processEditProjectForm,
+    processVolunteerForProject,
+    processRemoveVolunteerFromProject
 } from './controllers/projects.js';
 
 import { 
@@ -95,6 +97,9 @@ router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 // W05 Assignment - Admin-only users page
 router.get('/users', requireRole('admin'), showUsersPage);
+// W06 - Volunteer routes
+router.post('/project/:id/volunteer', requireLogin, processVolunteerForProject);
+router.post('/project/:id/remove-volunteer', requireLogin, processRemoveVolunteerFromProject);
 
 
 // error-handling routes

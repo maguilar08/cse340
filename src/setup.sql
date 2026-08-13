@@ -249,3 +249,50 @@ JOIN roles r ON u.role_id = r.role_id;
 
 -- Delete the test user
 DELETE FROM users WHERE email = 'test@example.com';
+
+
+/***********************************/
+SELECT * FROM users;
+
+SELECT
+    user_id,
+    name,
+    email,
+    password_hash,
+    role_id,
+    created_at
+FROM users
+WHERE email = 'marcelo.test@example.com';
+
+SELECT * FROM users;
+
+SELECT * FROM roles;
+
+UPDATE users
+SET role_id = (
+    SELECT role_id
+    FROM roles
+    WHERE role_name = 'admin'
+)
+WHERE email = 'admin@example.com';
+
+SELECT
+    users.user_id,
+    users.email,
+    roles.role_name
+FROM users
+JOIN roles
+    ON users.role_id = roles.role_id;
+/***********************************/
+
+CREATE TABLE project_volunteer (
+    user_id INTEGER NOT NULL
+        REFERENCES users(user_id)
+        ON DELETE CASCADE,
+
+    project_id INTEGER NOT NULL
+        REFERENCES service_project(project_id)
+        ON DELETE CASCADE,
+
+    PRIMARY KEY (user_id, project_id)
+);

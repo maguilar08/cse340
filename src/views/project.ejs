@@ -26,6 +26,32 @@
         </a>
     </p>
 
+    <!--W06-->
+    <% if (isLoggedIn) { %>
+
+        <% if (isVolunteering) { %>
+            <p>
+                <strong>You are volunteering for this project.</strong>
+            </p>
+    
+            <form action="/project/<%= project.project_id %>/remove-volunteer" method="POST">
+                <button type="submit" class="add-organization-btn">
+                    Remove Volunteering
+                </button>
+            </form>
+    
+        <% } else { %>
+    
+            <form action="/project/<%= project.project_id %>/volunteer" method="POST">
+                <button type="submit" class="add-organization-btn">
+                    Volunteer for This Project
+                </button>
+            </form>
+    
+        <% } %>
+    
+    <% } %>
+
     <h3>Categories</h3>
 
     <ul>
